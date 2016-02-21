@@ -250,7 +250,5 @@ app.on('ready', () => {
   }
 });
 app.on('will-quit', function() {
-
-  globalShortcut.unregister('ctrl+x');
-
+  ;globalShortcut.unregisterAll();
 });
