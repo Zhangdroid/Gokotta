@@ -1,4 +1,4 @@
-//encoding an Uint8Array to base64,from http://stackoverflow.com/questions/246801/how-can-you-encode-a-string-to-base64-in-javascript/246813#246813
+//encoding an Uint8Array to base64,from https://gist.github.com/jonleighton/958841
 export default function(arrayBuffer) {
   var base64 = ''
   var encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
