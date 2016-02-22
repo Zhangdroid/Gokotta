@@ -159,22 +159,17 @@ app.on('ready', () => {
       submenu: [{
         label: 'Learn More',
         click() {
-          shell.openExternal('http://electron.atom.io');
+          shell.openExternal('https://github.com/Zhangdroid/Gokotta');
         }
       }, {
         label: 'Documentation',
         click() {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme');
+          shell.openExternal('https://github.com/Zhangdroid/Gokotta#readme');
         }
       }, {
-        label: 'Community Discussions',
+        label: 'Issues',
         click() {
-          shell.openExternal('https://discuss.atom.io/c/electron');
-        }
-      }, {
-        label: 'Search Issues',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/issues');
+          shell.openExternal('https://github.com/Zhangdroid/Gokotta/issues');
         }
       }]
     }];
@@ -226,7 +221,7 @@ app.on('ready', () => {
       submenu: [{
         label: 'Learn More',
         click() {
-          shell.openExternal('http://electron.atom.io');
+          shell.openExternal('https://github.com/Zhangdroid/Gokotta');
         }
       }, {
         label: 'Documentation',
@@ -234,14 +229,9 @@ app.on('ready', () => {
           shell.openExternal('https://github.com/Zhangdroid/Gokotta#gokotta');
         }
       }, {
-        label: 'Community Discussions',
+        label: 'Issues',
         click() {
-          shell.openExternal('https://discuss.atom.io/c/electron');
-        }
-      }, {
-        label: 'Search Issues',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/issues');
+          shell.openExternal('https://github.com/Zhangdroid/Gokotta/issues');
         }
       }]
     }];
