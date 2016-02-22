@@ -85,7 +85,7 @@
     font-weight: 800;
     font-size: 40px;
     position: absolute;
-    top: 60%;
+    top: 45%;
     text-align: center;
   }
   .control-button {
