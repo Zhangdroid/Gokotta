@@ -1,5 +1,5 @@
 <template>
-  <div id="container" style="background:{{ playState.color }}">
+  <div id="container" v-bind:style="{ background: playState.color }">
     <img v-if="playState.lastSong.image" src="{{ playState.lastSong.image }}" alt="" />
     <img v-else src="../assets/images/logo.png" alt="" />
     <div class="content">
