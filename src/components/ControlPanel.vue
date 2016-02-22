@@ -1,6 +1,7 @@
 <template>
   <div id="container" style="background:{{ playState.color }}">
-    <img src="{{ playState.lastSong.image }}" alt="" />
+    <img v-if="playState.lastSong.image" src="{{ playState.lastSong.image }}" alt="" />
+    <img v-else src="../assets/images/logo.png" alt="" />
     <div class="content">
       <span id="title">{{ playState.lastSong.title }}</span>
       <span id="artist">{{ playState.lastSong.artist }}</span>
