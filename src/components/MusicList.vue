@@ -19,8 +19,8 @@
       <span class="list-title-album" @click="order = 'album'">Album</span>
     </div>
     <ul class="list">
-      <li v-if="playState.list === 'all' || song.favorite" class="list-item" v-for="song in songs  | orderBy order" track-by="id" @dblclick="play(song)" @contextmenu="contextmenu(song)">
-        <span v-if="song.id === playState.lastSong.id" class="play-signal" v-bind:style="{background:playState.color}"></span>
+      <li v-if="playState.list === 'all' || song.favorite" class="list-item" v-for="song in songs  | orderBy order" track-by="id" transition="list-item" @dblclick="play(song)" @contextmenu="contextmenu(song)">
+        <span v-if="song.id === playState.lastSong.id" class="play-signal" transition="play-signal" v-bind:style="{background:playState.color}"></span>
         <span v-else class="play-signal"></span>
         <span class="list-index" v-bind:style="{ color:playState.color,fontWeight:500,paddingLeft: '16px'}">{{ $index + 1 }}.</span>
         <span class="heart-container">
@@ -136,6 +136,15 @@
     height: 30px;
     line-height: 30px;
   }
+  .list-item-transition{
+    transition: opacity .3s ease;
+  }
+  .list-item-enter {
+    opacity: 0;
+  }
+  .list-item-leave {
+    opacity: 0;
+  }
   .list-item:nth-child(even) {
     background:rgba(220,220,220,0.4);
   }
@@ -145,6 +154,16 @@
   .play-signal {
     width: 0.5vw;
     height: 30px;
+  }
+  .play-signal-transition {
+    transition: height .3s ease;
+  }
+  .play-signal-enter {
+    height: 0;
+  }
+  .play-signal-leave {
+    height: 0;
+    position: absolute;
   }
   .list-index, .heart-container {
     position: relative;
