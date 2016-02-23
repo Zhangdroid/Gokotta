@@ -248,6 +248,14 @@
       playAll() {
         this.playState.playAll = true;
         this.playState.currentList = this.playState.list;
+        let id = '';
+        if (this.playState.list === 'all') {
+          id = this.songs[0].id;
+        } else if (this.playState.list === 'favorite') {
+          let song = this.songs.find((song) => song.favorite);
+          id = song.id;
+        }
+        setPlaySongByID(id)
       },
       favorite(song){
         song.favorite = ! song.favorite;
