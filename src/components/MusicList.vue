@@ -266,7 +266,7 @@
       contextmenu(song) {
         let self = this;
         let menu = new Menu();
-        menu.append(new MenuItem({ label: 'Play', click: function() { self.play(song.id) } }));
+        menu.append(new MenuItem({ label: 'Play', click: function() { self.play(song) } }));
         menu.append(new MenuItem({ type: 'separator' }));
         menu.append(new MenuItem({ label: 'Delete', click: function() { self.delete(song) }}));
         menu.popup(remote.getCurrentWindow());
