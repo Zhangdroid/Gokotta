@@ -93,13 +93,19 @@ const mutations = {
   DELETE_FROM_CURRENT_LIST(state, index) {
     state.currentList.splice(index, 1);
     if (state.currentList.length === 0) {
+      state.playState.isPlay = false;
+      state.playState.duration = 0;
       state.playState.lastSong = {};
+      wavesurfer.empty()
     }
   },
   DELETE_ALL_FROM_CURRENT_LIST(state) {
     state.currentList = [];
     state.playState.playAll = false;
+    state.playState.isPlay = false;
+    state.playState.duration = 0;
     state.playState.lastSong = {};
+    wavesurfer.empty()
   }
 }
 
