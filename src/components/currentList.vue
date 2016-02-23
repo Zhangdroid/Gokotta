@@ -2,7 +2,7 @@
   <div class="container" v-bind:style="{background: playState.color}" @scroll="getScrollTop">
     <h2 v-bind:style="{background: playState.color}" v-bind:class="{'h2-onscroll':!onTop}">QUEVE</h2>
     <ul>
-      <li v-if="(playState.playAll && playState.currentList === 'all') || (playState.playAll && playState.currentList === 'favorite' && song.favorite) || (currentSongsList.includes(song.id) && !playState.playAll)" v-for="song in songs" track-by="id"  v-bind:style="{backgroundImage: 'url(' + song.image + ')'}">
+      <li v-for="song in currentSongs" track-by="id"  v-bind:style="{backgroundImage: 'url(' + song.image + ')'}">
         <p id="title">{{song.title}}</p>
         <p id="artist">{{song.artist}}</p>
         <span id="button-play" @click="play(song.id)">PLAY</span>
@@ -149,6 +149,29 @@
       },
       playState() {
         return store.state.playState
+      },
+      currentSongs() {
+        let songs = [];
+        if (this.playState.playAll) {
+          if (this.playState.currentList === 'all') {
+            return this.songs;
+          } else if (this.playState.currentList === 'favorite') {
+            for(let song of this.songs.values()) {
+              if(song.favorite) {
+                songs.push(song);
+              }
+            }
+            return songs;
+          }
+        } else {
+          for (let i = 0; i < this.songs.length; i++) {
+            let index = this.currentSongsList.indexOf(this.songs[i].id);
+            if(index !== -1) {
+              songs[index] = this.songs[i];
+            }
+          }
+          return songs;
+        }
       }
     }
   }
