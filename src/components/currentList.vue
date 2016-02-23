@@ -8,7 +8,7 @@
         <span id="button-play" @click="play(song.id)">PLAY</span>
         <span id="button-remove" @click="remove(song.id)">REMOVE</span>
       </li>
-      <div v-if="playState.playAll || currentSongsList.length > 1" class="remove-all" @click="removeAll">Remove All</div>
+      <div v-if="currentSongs.length > 1" class="remove-all" @click="removeAll">Remove All</div>
     </ul>
   </div>
 </template>

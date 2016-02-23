@@ -245,9 +245,9 @@
       play(song){
         setPlaySongByID(song.id);
         if(this.playState.currentList !== 'all') {
-          this.playState.playAll = false;
-          addToCurrentList(song.id);
+          this.playState.playAll = false;  
         }
+        addToCurrentList(song.id);
       },
       playAll() {
         let self = this;
