@@ -22,7 +22,8 @@
       <li v-if="playState.list === 'all' || song.favorite" class="list-item" v-for="song in songs  | orderBy order" track-by="id" transition="list-item" @dblclick="play(song)" @contextmenu="contextmenu(song)">
         <span v-if="song.id === playState.lastSong.id" class="play-signal" transition="play-signal" v-bind:style="{background:playState.color}"></span>
         <span v-else class="play-signal"></span>
-        <span class="list-index" v-bind:style="{ color:playState.color,fontWeight:500,paddingLeft: '16px'}">{{ $index + 1 }}.</span>
+        <span v-if="playState.list === 'all'" class="list-index" v-bind:style="{ color:playState.color,fontWeight:500,paddingLeft: '16px'}">{{ $index + 1 }}.</span>
+        <span v-else class="list-index"></span>
         <span class="heart-container">
           <svg @click="favorite(song)" class="heart" v-bind:class="{favorite:song.favorite}" x="0px" y="0px" viewBox="0 0 64 64" xml:space="preserve">
             <path stroke-width="2" stroke-miterlimit="10" d="M1,21c0,20,31,38,31,38s31-18,31-38
