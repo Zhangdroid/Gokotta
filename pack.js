@@ -22,8 +22,11 @@ const DEFAULT_OPTS = {
   ignore: [
     '/test($|/)',
     '/tools($|/)',
-    '/release($|/)'
-  ].concat(devDeps.map(name => `/node_modules/${name}($|/)`))
+    '/release($|/)',
+    '/config($|/)',
+    '/webpack-config($|/)',
+    '/node_modules($|/)',
+  ]
 };
 
 const version = argv.version || argv.v;
