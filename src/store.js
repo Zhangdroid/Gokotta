@@ -13,6 +13,7 @@ Vue.use(Vuex)
 
 const SET_PLAY_SONG = 'SET_PLAY_SONG'
 const ADD_TO_CURRENT_LIST = 'ADD_TO_CURRENT_LIST'
+const ADD_ALL_TO_CURRENT_LIST = 'ADD_ALL_TO_CURRENT_LIST'
 const DELETE_FROM_CURRENT_LIST = 'DELETE_FROM_CURRENT_LIST'
 const DELETE_ALL_FROM_CURRENT_LIST = 'DELETE_ALL_FROM_CURRENT_LIST'
 
@@ -38,6 +39,7 @@ const state = {
 
 const actions = {
   addToCurrentList: ADD_TO_CURRENT_LIST,
+  addAllToCurrentList: ADD_ALL_TO_CURRENT_LIST,
   deleteFromCurrentList: (store, id) => {
     let index = store.state.currentList.indexOf(id);
     if (index !== -1) {
@@ -89,6 +91,17 @@ const mutations = {
     if (!state.currentList.includes(id)) {
       state.currentList.push(id);
     }
+  },
+  ADD_ALL_TO_CURRENT_LIST(state, songs) {
+    let list = [];
+    state.playState.playAll = true;
+    state.playState.currentList = state.playState.list;
+    for(let song of songs.values()) {
+      if (state.playState.currentList === 'all' || (state.playState.currentList === 'favorite' && song.favorite)) {
+        list.push(song.id);
+      }
+    }
+    state.currentList = list;
   },
   DELETE_FROM_CURRENT_LIST(state, index) {
     state.currentList.splice(index, 1);

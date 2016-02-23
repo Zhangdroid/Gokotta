@@ -217,6 +217,7 @@
   const {
     setPlaySongByID,
     addToCurrentList,
+    addAllToCurrentList,
     deleteFromCurrentList
   } = store.actions;
 
@@ -246,8 +247,7 @@
         addToCurrentList(song.id);
       },
       playAll() {
-        this.playState.playAll = true;
-        this.playState.currentList = this.playState.list;
+        let self = this;
         let id = '';
         if (this.playState.list === 'all') {
           id = this.songs[0].id;
@@ -255,7 +255,8 @@
           let song = this.songs.find((song) => song.favorite);
           id = song.id;
         }
-        setPlaySongByID(id)
+        setPlaySongByID(id);
+        addAllToCurrentList(self.songs);
       },
       favorite(song){
         song.favorite = ! song.favorite;
