@@ -68,7 +68,6 @@ const mutations = {
           }
           let string = "rgba(" + rgb.join(",") + ",0.7)";
           state.playState.color = string;
-          localStorage.setItem('color', string);
         });
         new Notification(song.title, {
           body: song.artist,
@@ -84,13 +83,11 @@ const mutations = {
         state.playState.isPlay = true;
         state.playState.duration = parseInt(wavesurfer.getDuration());
       });
-      localStorage.setItem('lastSong', JSON.stringify(song));
     });
   },
   ADD_TO_CURRENT_LIST(state, id) {
     if (!state.currentList.includes(id)) {
       state.currentList.push(id);
-      localStorage.setItem('currentList', JSON.stringify(state.currentList));
     }
   },
   DELETE_FROM_CURRENT_LIST(state, index) {
@@ -98,13 +95,11 @@ const mutations = {
     if (state.currentList.length === 0) {
       state.playState.lastSong = {};
     }
-    localStorage.setItem('currentList', JSON.stringify(state.currentList));
   },
   DELETE_ALL_FROM_CURRENT_LIST(state) {
     state.currentList = [];
     state.playState.playAll = false;
     state.playState.lastSong = {};
-    localStorage.setItem('currentList', '[]');
   }
 }
 
