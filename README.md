@@ -42,7 +42,7 @@ npm run release-all
 * [ ] Plugin support
 * [ ] Core Plugin(lyric, ID3 editor, Equalizer...)
 
-##Credits
+## Credits
 
 * [Electron](http://electron.atom.io/)
 * [Vue](http://vuejs.org/)
@@ -50,3 +50,7 @@ npm run release-all
 * [musicmetadata](https://github.com/leetreveil/musicmetadata)
 * [node-vibrant](https://www.npmjs.com/package/node-vibrant)
 * [Logo](https://github.com/Zhangdroid/Gokotta/blob/master/src/assets/images/logo.png) from [http://logodust.com/](http://logodust.com/)
+
+## License
+
+[MIT License](https://github.com/Zhangdroid/Gokotta/blob/master/LICENSE)
