@@ -116,11 +116,14 @@ let deleteSong = async(id) => {
 
 let switchSong = (method, isShuffle, list, lastSongID) => {
   let length = list.length;
+  let index = list.indexOf(lastSongID);
   if (isShuffle) {
-    let index = Math.round(Math.random() * length);
-    return list[index];
+    let randomIndex = Math.round(Math.random() * length);
+    while (randomIndex === index) {
+      randomIndex = Math.round(Math.random() * length);
+    }
+    return list[randomIndex];
   } else {
-    let index = list.indexOf(lastSongID);
     if (method === 'prev') {
       if (index <= 0) {
         return list[length - 1];
