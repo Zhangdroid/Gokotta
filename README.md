@@ -6,6 +6,12 @@ Gokotta is a simple music player, built by [electron](http://electron.atom.io/) 
 
 **Note: This project is still in developing with many bugs, and using some experimental features. DO NOT use it in real life.**
 
+## Download
+
+MacOS: [https://github.com/Zhangdroid/Gokotta/releases](https://github.com/Zhangdroid/Gokotta/releases)
+
+Linux and Windows will be coming soon.
+
 ## Install
 
 ```
