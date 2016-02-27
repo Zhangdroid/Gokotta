@@ -94,33 +94,33 @@ let deleteSongFromDB = (transaction, id) => {
   });
 }
 
-let searchSong = (transaction, searchTerm) => {
-  return new Promise(function(resolve, reject) {
-    let result = [];
-    let objectStore = transaction.objectStore("songs");
-    let index = objectStore.index("title");
-    index.openCursor(IDBKeyRange.bound(searchTerm, searchTerm + '\uffff'), 'prev').onsuccess = (event) => {
-      let cursor = event.target.result;
-      if (cursor) {
-        result.push([cursor.value.column1, cursor.value.sortcolumn]);
-        cursor.continue();
-      } else {
-        if (result.length) {
-          result.sort(function(a, b) {
-            return a[1] - b[2]
-          });
-          resolve(result);
-        }
-      }
-    };
-  });
-}
+// let searchSong = (transaction, searchTerm) => {
+//   return new Promise(function(resolve, reject) {
+//     let result = [];
+//     let objectStore = transaction.objectStore("songs");
+//     let index = objectStore.index("title");
+//     index.openCursor(IDBKeyRange.bound(searchTerm, searchTerm + '\uffff'), 'prev').onsuccess = (event) => {
+//       let cursor = event.target.result;
+//       if (cursor) {
+//         result.push([cursor.value.column1, cursor.value.sortcolumn]);
+//         cursor.continue();
+//       } else {
+//         if (result.length) {
+//           result.sort(function(a, b) {
+//             return a[1] - b[2]
+//           });
+//           resolve(result);
+//         }
+//       }
+//     };
+//   });
+// }
 export {
   initDB,
   openDB,
   getAllSongsFromDB,
   creatTransaction,
-  searchSong,
+//  searchSong,
   changeSongFromDB,
   deleteSongFromDB,
   getSongFromDB

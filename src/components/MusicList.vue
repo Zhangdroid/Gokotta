@@ -1,6 +1,18 @@
 <template>
   <div class="music-list-container">
     <header v-bind:style="{ background:playState.color }">
+      <div class="icon-contianer">
+        <svg id="search-icon" @click="openSearch" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+          <g>
+	           <circle stroke-width="2" stroke-miterlimit="10" cx="21" cy="21" r="20"/>
+	            <line stroke-width="2" stroke-miterlimit="10" x1="35" y1="35" x2="41" y2="41"/>
+		            <rect x="46.257" y="37.065" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 121.9178 50.5)" stroke-width="2" stroke-miterlimit="10" width="8.485" height="26.87"/>
+              </g>
+            </svg>
+      </div>
+      <div class="search-container" v-show="showSearch">
+        <input @blur="disappearSearch" id="search" v-el:search v-model="searchTerm" autofocus>
+      </div>
       <nav>
         <h1 id="library-button" @click="openLibrary" v-bind:class="{'active':playState.list === 'all'}">Library</h1>
         <h1 id="favorite-list-button" @click="openFavoriteList" v-bind:class="{'active':playState.list === 'favorite'}">Favorite</h1>
@@ -19,10 +31,10 @@
       <span class="list-title-album" @click="order = 'album'">Album</span>
     </div>
     <ul class="list">
-      <li v-if="playState.list === 'all' || song.favorite" class="list-item" v-for="song in songs  | orderBy order" track-by="id" transition="list-item" @dblclick="play(song)" @contextmenu="contextmenu(song)">
-        <span v-if="song.id === playState.lastSong.id" class="play-signal" transition="play-signal" v-bind:style="{background:playState.color}"></span>
+      <li v-show="playState.list === 'all' || song.favorite" class="list-item" v-for="song in songs | orderBy order | filterBy searchTerm in 'title' 'artist' 'album'" track-by="id" transition="list-item" @dblclick="play(song)" @contextmenu="contextmenu(song)">
+        <span v-show="song.id === playState.lastSong.id" class="play-signal" transition="play-signal" v-bind:style="{background:playState.color}"></span>
         <span v-else class="play-signal"></span>
-        <span v-if="playState.list === 'all'" class="list-index" v-bind:style="{ color:playState.color,fontWeight:500,paddingLeft: '16px'}">{{ $index + 1 }}.</span>
+        <span v-show="playState.list === 'all'" class="list-index" v-bind:style="{ color:playState.color,fontWeight:500,paddingLeft: '16px'}">{{ $index + 1 }}.</span>
         <span v-else class="list-index"></span>
         <span class="heart-container">
           <svg @click="favorite(song)" class="heart" v-bind:class="{favorite:song.favorite}" x="0px" y="0px" viewBox="0 0 64 64" xml:space="preserve">
@@ -47,7 +59,6 @@
     right: 20vw;
     overflow-y: scroll;
     overflow-x: hidden;
-    background: #eee;
     cursor: default;
   }
   header {
@@ -80,6 +91,38 @@
     font-size: 25px;
     color: #fff;
   }
+  .icon-contianer {
+    position: absolute;
+    right: 30px;
+    top: 15px;
+  }
+  #search-icon {
+    width: 20px;
+    height: 20px;
+    stroke: #fff;
+    fill: none;
+  }
+  .search-container {
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    height: 100px;
+    width: 80vw;
+  }
+  #search {
+    position: relative;
+    top: -10px;
+    width: 100%;
+    height: 100%;
+    padding: 0 20px;
+    border: 2px solid #fff;
+    background: rgba(255,255,255,0.8);
+    color: #333;
+    font-size: 45px;
+  }
+  .search:focus {
+    outline: none;
+  }
   #empty {
     width: 100%;
     color: #aaa;
@@ -110,8 +153,8 @@
   }
   .list-title {
     font-weight: 500;
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
     width: 100%;
     z-index: 2;
     backdrop-filter: blur(3px);
@@ -119,7 +162,7 @@
     top: 80px;
     font-size: 14px;
     cursor: pointer;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.5);
   }
   .list-title-title,.list-title-artist,.list-title-album {
     position: absolute;
@@ -145,6 +188,10 @@
   }
   .list-item-leave {
     opacity: 0;
+    position: absolute;
+  }
+  .list-item-move {
+    transition: transform .5s cubic-bezier(.55,0,.1,1);
   }
   .list-item:nth-child(even) {
     background:rgba(220,220,220,0.4);
@@ -229,7 +276,9 @@
       return{
         songs:[],
         added:1,
-        order: 'title'
+        order: 'title',
+        showSearch: false,
+        searchTerm: ''
       }
     },
 		components: {
@@ -242,10 +291,20 @@
           self.added++;
         });
       },
+      openSearch() {
+        this.showSearch = true;
+        this.$nextTick(() => {
+          this.$els.search.focus();
+        })
+      },
+      disappearSearch(event) {
+        this.showSearch = false;
+        this.searchTerm = '';
+      },
       play(song){
         setPlaySongByID(song.id);
         if(this.playState.currentList !== 'all') {
-          this.playState.playAll = false;  
+          this.playState.playAll = false;
         }
         addToCurrentList(song.id);
       },

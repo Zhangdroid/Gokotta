@@ -36,6 +36,7 @@ npm run release-all
 
 ## TODO
 
+* [x] Search
 * [ ] Setting
 * [ ] Support Windows and Linux
 * [ ] Custom list
