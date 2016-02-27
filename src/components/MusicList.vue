@@ -299,7 +299,9 @@
       },
       disappearSearch(event) {
         this.showSearch = false;
-        this.searchTerm = '';
+        setTimeout(() => {
+          this.searchTerm = '';
+        }, 500);  
       },
       play(song){
         setPlaySongByID(song.id);
