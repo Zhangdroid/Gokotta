@@ -1,6 +1,6 @@
 <template>
   <div class="container" v-bind:style="{background: playState.color}" @scroll="getScrollTop">
-    <h2 v-bind:style="{background: playState.color}" v-bind:class="{'h2-onscroll':!onTop}">QUEVE</h2>
+    <h2 v-bind:style="{background: playState.color}" v-bind:class="{'h2-onscroll':!onTop}">QUEUE</h2>
     <ul>
       <li v-for="song in currentSongs" track-by="id"  v-bind:style="{backgroundImage: 'url(' + song.image + ')'}">
         <p id="title">{{song.title}}</p>
