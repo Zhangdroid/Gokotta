@@ -2,7 +2,7 @@
   <div class="container" v-bind:style="{background: playState.color}" @scroll="getScrollTop">
     <h2 v-bind:style="{background: playState.color}" v-bind:class="{'h2-onscroll':!onTop}">QUEUE</h2>
     <ul>
-      <li v-for="song in currentSongs" track-by="id"  v-bind:style="{backgroundImage: 'url(' + song.image + ')'}">
+      <li v-for="song in currentSongs" track-by="id" transition="list-item" v-bind:style="{backgroundImage: 'url(' + song.image + ')'}">
         <p id="title">{{song.title}}</p>
         <p id="artist">{{song.artist}}</p>
         <span id="button-play" @click="play(song.id)">PLAY</span>
@@ -66,6 +66,16 @@
     width: 100%;
     height: 100px;
     background: rgba(0,0,0,0.3);
+  }
+  .list-item-enter {
+    opacity: 0;
+  }
+  .list-item-leave {
+    opacity: 0;
+    position: absolute;
+  }
+  .list-item-move {
+    transition: transform .5s cubic-bezier(.55,0,.1,1);
   }
   .remove-all{
     cursor: pointer;
