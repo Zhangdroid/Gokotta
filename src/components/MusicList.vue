@@ -31,7 +31,7 @@
       <span class="list-title-album" @click="order = 'album'">Album</span>
     </div>
     <ul class="list">
-      <li v-show="playState.list === 'all' || song.favorite" class="list-item" v-for="song in songs | orderBy order | filterBy searchTerm in 'title' 'artist' 'album'" track-by="id" transition="list-item" @dblclick="play(song)" @contextmenu="contextmenu(song)">
+      <li v-show="playState.list === 'all' || song.favorite" class="list-item" v-bind:class="{'list-item-background':playState.list !== 'all'}" v-for="song in songs | orderBy order | filterBy searchTerm in 'title' 'artist' 'album'" track-by="id" transition="list-item" @dblclick="play(song)" @contextmenu="contextmenu(song)">
         <span v-show="song.id === playState.lastSong.id" class="play-signal" transition="play-signal" v-bind:style="{background:playState.color}"></span>
         <span v-else class="play-signal"></span>
         <span v-show="playState.list === 'all'" class="list-index" v-bind:style="{ color:playState.color,fontWeight:500,paddingLeft: '16px'}">{{ $index + 1 }}.</span>
@@ -196,6 +196,9 @@
   .list-item:nth-child(even) {
     background:rgba(220,220,220,0.4);
   }
+  .list-item-background {
+    background:rgba(220,220,220,0.4);
+  }
   .list span {
     display: inline-block;
   }
@@ -301,7 +304,7 @@
         this.showSearch = false;
         setTimeout(() => {
           this.searchTerm = '';
-        }, 500);  
+        }, 500);
       },
       play(song){
         setPlaySongByID(song.id);
