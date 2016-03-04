@@ -2,13 +2,21 @@
   <div class="music-list-container">
     <header v-bind:style="{ background:playState.color }">
       <div class="icon-contianer">
-        <svg id="search-icon" @click="openSearch" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+        <svg class="icon" @click="openSearch" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
           <g>
 	           <circle stroke-width="2" stroke-miterlimit="10" cx="21" cy="21" r="20"/>
-	            <line stroke-width="2" stroke-miterlimit="10" x1="35" y1="35" x2="41" y2="41"/>
-		            <rect x="46.257" y="37.065" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 121.9178 50.5)" stroke-width="2" stroke-miterlimit="10" width="8.485" height="26.87"/>
-              </g>
-            </svg>
+	           <line stroke-width="2" stroke-miterlimit="10" x1="35" y1="35" x2="41" y2="41"/>
+		         <rect x="46.257" y="37.065" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 121.9178 50.5)" stroke-width="2" stroke-miterlimit="10" width="8.485" height="26.87"/>
+          </g>
+        </svg>
+        <svg class="icon" @click="openSetting" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+          <g>
+            <polygon stroke-width="2" stroke-miterlimit="10" points="32,1 26,1 26,10 20,12 14,6 6,14 12,20
+          		10,26 1,26 1,38 10,38 12,44 6,50 14,58 20,52 26,54 26,63 32,63 38,63 38,54 44,52 50,58 58,50 52,44 54,38 63,38 63,26 54,26
+          		52,20 58,14 50,6 44,12 38,10 38,1 	"/>
+          	<circle stroke-width="2" stroke-miterlimit="10" cx="32" cy="32" r="6"/>
+          </g>
+        </svg>
       </div>
       <div class="search-container" v-show="showSearch">
         <input @blur="disappearSearch" id="search" v-el:search v-model="searchTerm" autofocus>
@@ -96,7 +104,9 @@
     right: 30px;
     top: 15px;
   }
-  #search-icon {
+  .icon {
+    cursor: pointer;
+    margin-left: 10px;
     width: 20px;
     height: 20px;
     stroke: #fff;
@@ -275,8 +285,8 @@
   const Menu = remote.Menu;
   const MenuItem = remote.MenuItem;
 	export default {
-    data(){
-      return{
+    data() {
+      return {
         songs:[],
         added:1,
         order: 'title',
@@ -287,7 +297,7 @@
 		components: {
       CurrentList
 		},
-		methods:{
+		methods: {
       addSongs(){
         let self = this;
         addSongs().then(()=>{
@@ -299,6 +309,9 @@
         this.$nextTick(() => {
           this.$els.search.focus();
         })
+      },
+      openSetting() {
+        this.setting.show = true;
       },
       disappearSearch(event) {
         this.showSearch = false;
@@ -360,8 +373,11 @@
       added: 'reloadAsyncData'
     },
     computed:{
-      playState(){
+      playState() {
         return store.state.playState
+      },
+      setting() {
+        return store.state.setting
       }
     }
 

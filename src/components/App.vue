@@ -2,6 +2,7 @@
   <div class="app">
     <router-view></router-view>
     <control-panel></control-panel>
+    <setting></setting>
   </div>
 </template>
 <style>
@@ -19,6 +20,7 @@
 <script>
   import initApp from '../init';
   import ControlPanel from './ControlPanel.vue';
+  import Setting from './Setting.vue'
   import store from '../store';
   const remote = require('electron').remote;
   const electronApp = remote.app;
@@ -30,11 +32,13 @@
       electronApp.on('will-quit',() => {
         localStorage.setItem('currentList', JSON.stringify(this.currentList));
         localStorage.setItem('lastSong', JSON.stringify(this.playState.lastSong));
+        localStorage.setItem('setting', JSON.stringify(this.setting));
         localStorage.setItem('color', this.playState.color);
       });
     },
     components: {
       ControlPanel,
+      Setting
     },
     computed:{
       playState() {
@@ -42,6 +46,9 @@
       },
       currentList() {
         return store.state.currentList
+      },
+      setting() {
+        return store.state.setting
       }
     }
   }

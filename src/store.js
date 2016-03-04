@@ -16,6 +16,7 @@ const ADD_TO_CURRENT_LIST = 'ADD_TO_CURRENT_LIST'
 const ADD_ALL_TO_CURRENT_LIST = 'ADD_ALL_TO_CURRENT_LIST'
 const DELETE_FROM_CURRENT_LIST = 'DELETE_FROM_CURRENT_LIST'
 const DELETE_ALL_FROM_CURRENT_LIST = 'DELETE_ALL_FROM_CURRENT_LIST'
+const CHANGE_SETTING = 'CHANGE_SETTING'
 
 const state = {
   playState: {
@@ -34,7 +35,11 @@ const state = {
     shuffle: false,
     color: localStorage.getItem("color") || ''
   },
-  currentList: JSON.parse(localStorage.getItem("currentList")) || []
+  currentList: JSON.parse(localStorage.getItem("currentList")) || [],
+  setting: JSON.parse(localStorage.getItem("setting")) || {
+    show: false,
+    notification: true
+  }
 }
 
 const actions = {
@@ -54,7 +59,8 @@ const actions = {
     }
   },
   deleteAllFromCurrentList: DELETE_ALL_FROM_CURRENT_LIST,
-  setPlaySongByID: SET_PLAY_SONG
+  setPlaySongByID: SET_PLAY_SONG,
+  changeSetting: CHANGE_SETTING
 }
 
 const mutations = {
@@ -71,6 +77,8 @@ const mutations = {
           let string = "rgba(" + rgb.join(",") + ",0.7)";
           state.playState.color = string;
         });
+      }
+      if(state.setting.notification) {
         new Notification(song.title, {
           body: song.artist,
           icon: song.image,
@@ -119,6 +127,9 @@ const mutations = {
     state.playState.duration = 0;
     state.playState.lastSong = {};
     wavesurfer.empty()
+  },
+  CHANGE_SETTING(state, item, value) {
+    state.setting[item] = value;
   }
 }
 
