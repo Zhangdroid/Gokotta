@@ -12,6 +12,13 @@
     box-sizing: border-box;
     font-family: 'PingFang SC',sans-serif;
   }
+  html {
+    overflow: hidden;
+  }
+  body {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
   .app {
     width: 100vw;
     height: 100vh;
