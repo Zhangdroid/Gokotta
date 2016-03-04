@@ -76,7 +76,7 @@
     color: #fff;
     height: 80px;
     left: 0;
-    right: 200px;
+    right: 20vw;
     backdrop-filter: blur(3px);
   }
   h1 {
@@ -156,7 +156,7 @@
   }
   .list {
     width: 80vw;
-    margin: 120px 0;
+    margin: 110px 0 120px 0;
     font-size: 13px;
     list-style: none;
     -webkit-user-select:none;
@@ -172,7 +172,7 @@
     top: 80px;
     font-size: 14px;
     cursor: pointer;
-    background: rgba(255,255,255,0.5);
+    background: rgba(220,220,220,0.4);
   }
   .list-title-title,.list-title-artist,.list-title-album {
     position: absolute;
