@@ -4,6 +4,7 @@ import {
   creatTransaction,
   changeSongFromDB,
   getSongFromDB,
+  deleteSongByFolderFromDB,
   deleteSongFromDB
 } from '../db';
 import encode from './encode';
@@ -39,8 +40,8 @@ let addScannedFolder = () => {
   if (!scannedFolder.includes(tempPath[0])) {
     scannedFolder.push(tempPath[0]);
     localStorage.setItem("scannedFolder", JSON.stringify(scannedFolder));
+    return tempPath;
   }
-  return tempPath;
 }
 
 let scanFolder = (path) => {
@@ -71,18 +72,20 @@ let getID3 = (filePath, songs) => {
 let addSongs = async() => {
   let songs = [];
   let scannedFolder = addScannedFolder();
-  for (let filePath of Array.from(scanFolder(scannedFolder[0])).values()) {
-    songs = await getID3(filePath, songs);
-  }
-  let db = await openDB('AllSongs');
-  let transaction = db.transaction(["songs"], "readwrite");
-  let objectStore = transaction.objectStore("songs");
-  for (let j = 0; j < songs.length; j++) {
-    let req = objectStore.add(songs[j]);
-    req.onsuccess = () => {};
-    req.onerror = () => {
-      //TODO
-    };
+  if (scannedFolder) {
+    for (let filePath of Array.from(scanFolder(scannedFolder[0])).values()) {
+      songs = await getID3(filePath, songs);
+    }
+    let db = await openDB('AllSongs');
+    let transaction = db.transaction(["songs"], "readwrite");
+    let objectStore = transaction.objectStore("songs");
+    for (let j = 0; j < songs.length; j++) {
+      let req = objectStore.add(songs[j]);
+      req.onsuccess = () => {};
+      req.onerror = () => {
+        //TODO
+      };
+    }
   }
 }
 
