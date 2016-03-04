@@ -39,8 +39,8 @@ let addScannedFolder = () => {
   if (!scannedFolder.includes(tempPath[0])) {
     scannedFolder.push(tempPath[0]);
     localStorage.setItem("scannedFolder", JSON.stringify(scannedFolder));
-    return scannedFolder;
   }
+  return tempPath;
 }
 
 let scanFolder = (path) => {
@@ -71,11 +71,9 @@ let getID3 = (filePath, songs) => {
 let addSongs = async() => {
   let songs = [];
   let scannedFolder = addScannedFolder();
-  for (let folderPath of scannedFolder.values()) {
-    for (let filePath of Array.from(scanFolder(folderPath)).values()) {
-      songs = await getID3(filePath, songs);
-    }
-  };
+  for (let filePath of Array.from(scanFolder(scannedFolder[0])).values()) {
+    songs = await getID3(filePath, songs);
+  }
   let db = await openDB('AllSongs');
   let transaction = db.transaction(["songs"], "readwrite");
   let objectStore = transaction.objectStore("songs");
