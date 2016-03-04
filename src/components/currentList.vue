@@ -162,26 +162,13 @@
       },
       currentSongs() {
         let songs = [];
-        if (this.playState.playAll) {
-          if (this.playState.currentList === 'all') {
-            return this.songs;
-          } else if (this.playState.currentList === 'favorite') {
-            for(let song of this.songs.values()) {
-              if(song.favorite) {
-                songs.push(song);
-              }
-            }
-            return songs;
+        for (let i = 0; i < this.songs.length; i++) {
+          let index = this.currentSongsList.indexOf(this.songs[i].id);
+          if(index !== -1) {
+            songs[index] = this.songs[i];
           }
-        } else {
-          for (let i = 0; i < this.songs.length; i++) {
-            let index = this.currentSongsList.indexOf(this.songs[i].id);
-            if(index !== -1) {
-              songs[index] = this.songs[i];
-            }
-          }
-          return songs;
         }
+        return songs;
       }
     }
   }
