@@ -17,6 +17,7 @@ const ADD_ALL_TO_CURRENT_LIST = 'ADD_ALL_TO_CURRENT_LIST'
 const DELETE_FROM_CURRENT_LIST = 'DELETE_FROM_CURRENT_LIST'
 const DELETE_ALL_FROM_CURRENT_LIST = 'DELETE_ALL_FROM_CURRENT_LIST'
 const CHANGE_SETTING = 'CHANGE_SETTING'
+const CHANGE_DATABASE = 'CHANGE_DATABASE'
 
 const state = {
   playState: {
@@ -35,6 +36,7 @@ const state = {
     shuffle: false,
     color: localStorage.getItem("color") || ''
   },
+  dbChange: false,
   currentList: JSON.parse(localStorage.getItem("currentList")) || [],
   setting: JSON.parse(localStorage.getItem("setting")) || {
     show: false,
@@ -60,7 +62,8 @@ const actions = {
   },
   deleteAllFromCurrentList: DELETE_ALL_FROM_CURRENT_LIST,
   setPlaySongByID: SET_PLAY_SONG,
-  changeSetting: CHANGE_SETTING
+  changeSetting: CHANGE_SETTING,
+  changeDB: CHANGE_DATABASE
 }
 
 const mutations = {
@@ -130,6 +133,9 @@ const mutations = {
   },
   CHANGE_SETTING(state, item, value) {
     state.setting[item] = value;
+  },
+  CHANGE_DATABASE(state) {
+    state.dbChange = !state.dbChange;
   }
 }
 

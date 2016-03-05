@@ -115,6 +115,12 @@ let deleteSong = async(id) => {
   await deleteSongFromDB(transaction,id);
 }
 
+let deleteSongByFolder = async(folder) => {
+  let db = await openDB('AllSongs');
+  let transaction = await creatTransaction(db, "songs", "readwrite");
+  await deleteSongByFolderFromDB(transaction,folder);
+}
+
 let switchSong = (method, isShuffle, list, lastSongID) => {
   let length = list.length;
   let index = list.indexOf(lastSongID);
@@ -149,5 +155,6 @@ export {
   getSongByID,
   changeSong,
   deleteSong,
+  deleteSongByFolder,
   switchSong
 };

@@ -9,6 +9,14 @@
           <input type="checkbox" id="notification" v-model="setting.notification"/>
           <label for="notification" class="check-box"></label>
         </li>
+        <li>
+          Folder:
+          <ul id="folder-list">
+            <li v-for="folder in folders">
+              {{folder}} <span class="delete-button" v-bind:style="{color:color}" @click="deleteFolder(folder)">Remove</span>
+            </li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>
@@ -36,32 +44,42 @@
     position: absolute;
 
   }
-  .container::before {
-    position: absolute;
-    content: '';
-    width: 100%;
-    height: 100%;
-    box-shadow: 0 0 30px rgba(0,0,0,0.2);
-  }
-  .content{
+  .content {
     padding: 20px;
     width: 100%;
     height: 100%;
     position: absolute;
     z-index: 5;
   }
-  .close{
+  .close {
     cursor: pointer;
     position: absolute;
     right: 15px;
     top: 15px;
   }
-  h2{
+  h2 {
     padding-left: 8px;
   }
-  ul{
+  ul {
     list-style: none;
     margin: 15px;
+    font-size: 14px;
+  }
+  li {
+    height: 30px;
+    line-height: 30px;
+  }
+  #folder-list {
+    margin: -5px 0 0 15px;
+    font-size: 12px;
+  }
+  .delete-button {
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 5px;
+    font-size: 9px;
+    padding: 1.5px 3px;
+    margin-left: 5px;
   }
   input[type=checkbox] {
     display: none;
@@ -69,7 +87,7 @@
   .check-box {
     height: 16px;
     width: 16px;
-    margin-left: 15px;
+    margin-left: 10px;
     background-color: transparent;
     border: 1.6px solid rgba(50,50,50,0.3);
     border-radius: 5px;
@@ -137,13 +155,27 @@
 </style>
 <script>
   import store from '../store';
+  import { deleteSongByFolder } from '../services/songs';
   const {
-    changeSetting
+    changeSetting,
+    changeDB
   } = store.actions;
   export default {
+    data() {
+      return {
+        folders: JSON.parse(localStorage.getItem("scannedFolder"))
+      }
+    },
     methods: {
       close() {
         this.setting.show = false;
+      },
+      deleteFolder(folder) {
+        this.folders.$remove(folder);
+        localStorage.setItem("scannedFolder", JSON.stringify(this.folders));
+        deleteSongByFolder(folder).then(()=>{
+          changeDB()
+        });
       }
     },
     computed: {

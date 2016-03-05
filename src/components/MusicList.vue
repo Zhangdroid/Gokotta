@@ -278,7 +278,8 @@
     setPlaySongByID,
     addToCurrentList,
     addAllToCurrentList,
-    deleteFromCurrentList
+    deleteFromCurrentList,
+    changeDB
   } = store.actions;
 
   const remote = require('electron').remote;
@@ -301,7 +302,7 @@
       addSongs(){
         let self = this;
         addSongs().then(()=>{
-          self.added++;
+          changeDB();
         });
       },
       openSearch() {
@@ -370,7 +371,7 @@
       })
     },
     watch: {
-      added: 'reloadAsyncData'
+      dbChange: 'reloadAsyncData'
     },
     computed:{
       playState() {
@@ -378,6 +379,9 @@
       },
       setting() {
         return store.state.setting
+      },
+      dbChange() {
+        return store.state.dbChange
       }
     }
 
