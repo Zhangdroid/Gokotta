@@ -94,6 +94,24 @@ let deleteSongFromDB = (transaction, id) => {
   });
 }
 
+let deleteSongByFolderFromDB = (transaction, path) => {
+  return new Promise(function(resolve, reject) {
+    let objectStore = transaction.objectStore("songs");
+    let req = objectStore.openCursor();
+    req.onsuccess = (event) => {
+      let cursor = event.target.result;
+      if(cursor) {
+        if(cursor.value.path.startsWith(path)) {
+          cursor.delete();
+        }
+        cursor.continue();
+      } else {
+        resolve();
+      }
+    }
+  });
+}
+
 // let searchSong = (transaction, searchTerm) => {
 //   return new Promise(function(resolve, reject) {
 //     let result = [];
@@ -123,5 +141,6 @@ export {
 //  searchSong,
   changeSongFromDB,
   deleteSongFromDB,
+  deleteSongByFolderFromDB,
   getSongFromDB
 }

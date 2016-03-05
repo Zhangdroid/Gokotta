@@ -4,6 +4,7 @@ import {
   creatTransaction,
   changeSongFromDB,
   getSongFromDB,
+  deleteSongByFolderFromDB,
   deleteSongFromDB
 } from '../db';
 import encode from './encode';
@@ -39,7 +40,7 @@ let addScannedFolder = () => {
   if (!scannedFolder.includes(tempPath[0])) {
     scannedFolder.push(tempPath[0]);
     localStorage.setItem("scannedFolder", JSON.stringify(scannedFolder));
-    return scannedFolder;
+    return tempPath;
   }
 }
 
@@ -71,20 +72,20 @@ let getID3 = (filePath, songs) => {
 let addSongs = async() => {
   let songs = [];
   let scannedFolder = addScannedFolder();
-  for (let folderPath of scannedFolder.values()) {
-    for (let filePath of Array.from(scanFolder(folderPath)).values()) {
+  if (scannedFolder) {
+    for (let filePath of Array.from(scanFolder(scannedFolder[0])).values()) {
       songs = await getID3(filePath, songs);
     }
-  };
-  let db = await openDB('AllSongs');
-  let transaction = db.transaction(["songs"], "readwrite");
-  let objectStore = transaction.objectStore("songs");
-  for (let j = 0; j < songs.length; j++) {
-    let req = objectStore.add(songs[j]);
-    req.onsuccess = () => {};
-    req.onerror = () => {
-      //TODO
-    };
+    let db = await openDB('AllSongs');
+    let transaction = db.transaction(["songs"], "readwrite");
+    let objectStore = transaction.objectStore("songs");
+    for (let j = 0; j < songs.length; j++) {
+      let req = objectStore.add(songs[j]);
+      req.onsuccess = () => {};
+      req.onerror = () => {
+        //TODO
+      };
+    }
   }
 }
 
@@ -112,6 +113,12 @@ let deleteSong = async(id) => {
   let db = await openDB('AllSongs');
   let transaction = await creatTransaction(db, "songs", "readwrite");
   await deleteSongFromDB(transaction,id);
+}
+
+let deleteSongByFolder = async(folder) => {
+  let db = await openDB('AllSongs');
+  let transaction = await creatTransaction(db, "songs", "readwrite");
+  await deleteSongByFolderFromDB(transaction,folder);
 }
 
 let switchSong = (method, isShuffle, list, lastSongID) => {
@@ -148,5 +155,6 @@ export {
   getSongByID,
   changeSong,
   deleteSong,
+  deleteSongByFolder,
   switchSong
 };

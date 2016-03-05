@@ -2,13 +2,21 @@
   <div class="music-list-container">
     <header v-bind:style="{ background:playState.color }">
       <div class="icon-contianer">
-        <svg id="search-icon" @click="openSearch" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+        <svg class="icon" @click="openSearch" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
           <g>
 	           <circle stroke-width="2" stroke-miterlimit="10" cx="21" cy="21" r="20"/>
-	            <line stroke-width="2" stroke-miterlimit="10" x1="35" y1="35" x2="41" y2="41"/>
-		            <rect x="46.257" y="37.065" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 121.9178 50.5)" stroke-width="2" stroke-miterlimit="10" width="8.485" height="26.87"/>
-              </g>
-            </svg>
+	           <line stroke-width="2" stroke-miterlimit="10" x1="35" y1="35" x2="41" y2="41"/>
+		         <rect x="46.257" y="37.065" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 121.9178 50.5)" stroke-width="2" stroke-miterlimit="10" width="8.485" height="26.87"/>
+          </g>
+        </svg>
+        <svg class="icon" @click="openSetting" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+          <g>
+            <polygon stroke-width="2" stroke-miterlimit="10" points="32,1 26,1 26,10 20,12 14,6 6,14 12,20
+          		10,26 1,26 1,38 10,38 12,44 6,50 14,58 20,52 26,54 26,63 32,63 38,63 38,54 44,52 50,58 58,50 52,44 54,38 63,38 63,26 54,26
+          		52,20 58,14 50,6 44,12 38,10 38,1 	"/>
+          	<circle stroke-width="2" stroke-miterlimit="10" cx="32" cy="32" r="6"/>
+          </g>
+        </svg>
       </div>
       <div class="search-container" v-show="showSearch">
         <input @blur="disappearSearch" id="search" v-el:search v-model="searchTerm" autofocus>
@@ -31,7 +39,7 @@
       <span class="list-title-album" @click="order = 'album'">Album</span>
     </div>
     <ul class="list">
-      <li v-show="playState.list === 'all' || song.favorite" class="list-item" v-for="song in songs | orderBy order | filterBy searchTerm in 'title' 'artist' 'album'" track-by="id" transition="list-item" @dblclick="play(song)" @contextmenu="contextmenu(song)">
+      <li v-show="playState.list === 'all' || song.favorite" class="list-item" v-bind:class="{'list-item-background':playState.list !== 'all'}" v-for="song in songs | orderBy order | filterBy searchTerm in 'title' 'artist' 'album'" track-by="id" transition="list-item" @dblclick="play(song)" @contextmenu="contextmenu(song)">
         <span v-show="song.id === playState.lastSong.id" class="play-signal" transition="play-signal" v-bind:style="{background:playState.color}"></span>
         <span v-else class="play-signal"></span>
         <span v-show="playState.list === 'all'" class="list-index" v-bind:style="{ color:playState.color,fontWeight:500,paddingLeft: '16px'}">{{ $index + 1 }}.</span>
@@ -68,7 +76,7 @@
     color: #fff;
     height: 80px;
     left: 0;
-    right: 200px;
+    right: 20vw;
     backdrop-filter: blur(3px);
   }
   h1 {
@@ -96,7 +104,9 @@
     right: 30px;
     top: 15px;
   }
-  #search-icon {
+  .icon {
+    cursor: pointer;
+    margin-left: 10px;
     width: 20px;
     height: 20px;
     stroke: #fff;
@@ -146,7 +156,7 @@
   }
   .list {
     width: 80vw;
-    margin: 120px 0;
+    margin: 110px 0 120px 0;
     font-size: 13px;
     list-style: none;
     -webkit-user-select:none;
@@ -162,7 +172,7 @@
     top: 80px;
     font-size: 14px;
     cursor: pointer;
-    background: rgba(255,255,255,0.5);
+    background: rgba(220,220,220,0.4);
   }
   .list-title-title,.list-title-artist,.list-title-album {
     position: absolute;
@@ -194,6 +204,9 @@
     transition: transform .5s cubic-bezier(.55,0,.1,1);
   }
   .list-item:nth-child(even) {
+    background:rgba(220,220,220,0.4);
+  }
+  .list-item-background {
     background:rgba(220,220,220,0.4);
   }
   .list span {
@@ -265,15 +278,16 @@
     setPlaySongByID,
     addToCurrentList,
     addAllToCurrentList,
-    deleteFromCurrentList
+    deleteFromCurrentList,
+    changeDB
   } = store.actions;
 
   const remote = require('electron').remote;
   const Menu = remote.Menu;
   const MenuItem = remote.MenuItem;
 	export default {
-    data(){
-      return{
+    data() {
+      return {
         songs:[],
         added:1,
         order: 'title',
@@ -284,11 +298,11 @@
 		components: {
       CurrentList
 		},
-		methods:{
+		methods: {
       addSongs(){
         let self = this;
         addSongs().then(()=>{
-          self.added++;
+          changeDB();
         });
       },
       openSearch() {
@@ -297,11 +311,14 @@
           this.$els.search.focus();
         })
       },
+      openSetting() {
+        this.setting.show = true;
+      },
       disappearSearch(event) {
         this.showSearch = false;
         setTimeout(() => {
           this.searchTerm = '';
-        }, 500);  
+        }, 500);
       },
       play(song){
         setPlaySongByID(song.id);
@@ -354,11 +371,17 @@
       })
     },
     watch: {
-      added: 'reloadAsyncData'
+      dbChange: 'reloadAsyncData'
     },
     computed:{
-      playState(){
+      playState() {
         return store.state.playState
+      },
+      setting() {
+        return store.state.setting
+      },
+      dbChange() {
+        return store.state.dbChange
       }
     }
 
