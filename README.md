@@ -1,4 +1,4 @@
-# Gokotta [![Dependency Status](https://david-dm.org/Zhangdroid/Gokotta.svg?style=flat-square)](https://david-dm.org/Zhangdroid/Gokotta)[![devDependency Status](https://david-dm.org/Zhangdroid/Gokotta/dev-status.svg?style=flat-square)](https://david-dm.org/Zhangdroid/Gokotta#info=devDependencies)
+# Gokotta [![Dependency Status](https://david-dm.org/Zhangdroid/Gokotta.svg?style=flat-square)](https://david-dm.org/Zhangdroid/Gokotta)  [![devDependency Status](https://david-dm.org/Zhangdroid/Gokotta/dev-status.svg?style=flat-square)](https://david-dm.org/Zhangdroid/Gokotta#info=devDependencies)
 
 ![screenshot](https://raw.githubusercontent.com/Zhangdroid/Gokotta/master/resources/screenshot.png)
 
