@@ -1,4 +1,4 @@
-# Gokotta [![devDependency Status](https://david-dm.org/Zhangdroid/Gokotta/dev-status.svg?style=flat-square)](https://david-dm.org/Zhangdroid/Gokotta#info=devDependencies)
+# Gokotta [![Dependency Status](https://david-dm.org/Zhangdroid/Gokotta.svg?style=flat-square)](https://david-dm.org/Zhangdroid/Gokotta)[![devDependency Status](https://david-dm.org/Zhangdroid/Gokotta/dev-status.svg?style=flat-square)](https://david-dm.org/Zhangdroid/Gokotta#info=devDependencies)
 
 ![screenshot](https://raw.githubusercontent.com/Zhangdroid/Gokotta/master/resources/screenshot.png)
 
@@ -6,11 +6,17 @@ Gokotta is a simple music player, built by [electron](http://electron.atom.io/) 
 
 **Note: This project is still in developing with many bugs, and using some experimental features. DO NOT use it in real life.**
 
+support format: **mp3, aac and wav**
+
 ## Download
 
 MacOS: [https://github.com/Zhangdroid/Gokotta/releases](https://github.com/Zhangdroid/Gokotta/releases)
 
 Linux and Windows will be coming soon.
+
+## Usage
+
+Just click `add` and chose your music folder.
 
 ## Install
 
@@ -43,7 +49,7 @@ npm run release-all
 ## TODO
 
 * [x] Search
-* [ ] Setting
+* [x] Setting
 * [ ] Support Windows and Linux
 * [ ] Custom list
 * [ ] Plugin support
