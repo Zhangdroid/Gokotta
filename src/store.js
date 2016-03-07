@@ -18,30 +18,35 @@ const DELETE_FROM_CURRENT_LIST = 'DELETE_FROM_CURRENT_LIST'
 const DELETE_ALL_FROM_CURRENT_LIST = 'DELETE_ALL_FROM_CURRENT_LIST'
 const CHANGE_SETTING = 'CHANGE_SETTING'
 const CHANGE_DATABASE = 'CHANGE_DATABASE'
+const RESET = 'RESET'
+
+
+const INITPLAYSTATE = {
+  lastSong: JSON.parse(localStorage.getItem("lastSong")) || {
+    title: '',
+    album: '',
+    path: '',
+    image: ''
+  },
+  duration: 0,
+  currentTime: 0,
+  isPlay: false,
+  playAll: false,
+  list: 'all',
+  currentList: 'all',
+  shuffle: false,
+  color: localStorage.getItem("color") || ''
+}
+const INITSETTING = {
+  show: false,
+  notification: true
+}
 
 const state = {
-  playState: {
-    lastSong: JSON.parse(localStorage.getItem("lastSong")) || {
-      title: '',
-      album: '',
-      path: '',
-      image: ''
-    },
-    duration: 0,
-    currentTime: 0,
-    isPlay: false,
-    playAll: false,
-    list: 'all',
-    currentList: 'all',
-    shuffle: false,
-    color: localStorage.getItem("color") || ''
-  },
+  playState: INITPLAYSTATE,
   dbChange: false,
   currentList: JSON.parse(localStorage.getItem("currentList")) || [],
-  setting: JSON.parse(localStorage.getItem("setting")) || {
-    show: false,
-    notification: true
-  }
+  setting: JSON.parse(localStorage.getItem("setting")) || INITSETTING
 }
 
 const actions = {
@@ -63,7 +68,8 @@ const actions = {
   deleteAllFromCurrentList: DELETE_ALL_FROM_CURRENT_LIST,
   setPlaySongByID: SET_PLAY_SONG,
   changeSetting: CHANGE_SETTING,
-  changeDB: CHANGE_DATABASE
+  changeDB: CHANGE_DATABASE,
+  reset: RESET
 }
 
 const mutations = {
@@ -136,6 +142,13 @@ const mutations = {
   },
   CHANGE_DATABASE(state) {
     state.dbChange = !state.dbChange;
+  },
+  RESET(state) {
+    localStorage.setItem('currentList', '[]');
+    localStorage.setItem('lastSong', '{}');
+    wavesurfer.empty();
+    state.playState = INITPLAYSTATE;
+    state.currentList = [];
   }
 }
 

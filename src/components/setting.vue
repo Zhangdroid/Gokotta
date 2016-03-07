@@ -158,7 +158,8 @@
   import { deleteSongByFolder } from '../services/songs';
   const {
     changeSetting,
-    changeDB
+    changeDB,
+    reset
   } = store.actions;
   export default {
     data() {
@@ -176,6 +177,7 @@
         deleteSongByFolder(folder).then(()=>{
           changeDB()
         });
+        reset();
       }
     },
     computed: {
@@ -184,7 +186,15 @@
       },
       color() {
         return store.state.playState.color
+      },
+      dbChange() {
+        return store.state.dbChange
       }
-    }
+    },
+    watch: {
+      dbChange() {
+        this.folders = JSON.parse(localStorage.getItem("scannedFolder"));
+      }
+    },
   }
 </script>
