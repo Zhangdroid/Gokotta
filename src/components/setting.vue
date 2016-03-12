@@ -10,7 +10,7 @@
           <label for="notification" class="check-box"></label>
         </li>
         <li>
-          Folder:
+          <span v-if="folders.length !== 0">Folder:</span>
           <ul id="folder-list">
             <li v-for="folder in folders">
               {{folder}} <span class="delete-button" v-bind:style="{color:color}" @click="deleteFolder(folder)">Remove</span>
@@ -164,7 +164,6 @@
   export default {
     data() {
       return {
-        folders: JSON.parse(localStorage.getItem("scannedFolder"))
       }
     },
     methods: {
@@ -189,6 +188,9 @@
       },
       dbChange() {
         return store.state.dbChange
+      },
+      folders() {
+        return store.state.folders
       }
     },
     watch: {
