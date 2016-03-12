@@ -37,6 +37,7 @@ const state = {
     color: localStorage.getItem("color") || ''
   },
   dbChange: false,
+  folders: JSON.parse(localStorage.getItem("scannedFolder")) || [],
   currentList: JSON.parse(localStorage.getItem("currentList")) || [],
   setting: JSON.parse(localStorage.getItem("setting")) || {
     show: false,
@@ -136,6 +137,7 @@ const mutations = {
   },
   CHANGE_DATABASE(state) {
     state.dbChange = !state.dbChange;
+    state.folders = JSON.parse(localStorage.getItem("scannedFolder"));
   }
 }
 
