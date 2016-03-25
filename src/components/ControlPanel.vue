@@ -197,7 +197,7 @@ img {
 <script>
 
 import store from '../store';
-import WaveSurfer from 'wavesurfer.js';
+import WaveSurfer from '../services/wavesurfer.cjs';
 import {
     switchSong
 }
