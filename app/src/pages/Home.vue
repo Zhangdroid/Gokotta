@@ -1,8 +1,12 @@
 <template>
-  <h1>hello</h1>
+  <file-selector></file-selector>
 </template>
 
 <script>
+import FileSelector from '../components/FileSelector.vue'
 export default {
+  components: {
+    FileSelector
+  }
 }
 </script>
