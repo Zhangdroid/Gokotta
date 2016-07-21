@@ -1,4 +1,0 @@
-// common config
-
-export default {
-}

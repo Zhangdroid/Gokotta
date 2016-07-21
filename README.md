@@ -1,69 +1,27 @@
-# Gokotta [![Dependency Status](https://david-dm.org/Zhangdroid/Gokotta.svg?style=flat-square)](https://david-dm.org/Zhangdroid/Gokotta)  [![devDependency Status](https://david-dm.org/Zhangdroid/Gokotta/dev-status.svg?style=flat-square)](https://david-dm.org/Zhangdroid/Gokotta#info=devDependencies)
+# gokotta
 
-![screenshot](https://raw.githubusercontent.com/Zhangdroid/Gokotta/master/resources/screenshot.png)
+> An electron-vue project
 
-Gokotta is a simple music player, built by [electron](http://electron.atom.io/) and [vue](http://vuejs.org/).
+## Build Setup
 
-**Note: This project is still in developing with many bugs, and using some experimental features. DO NOT use it on production**
+``` bash
+# install dependencies
+npm install
 
-support format: **mp3, aac and wav**
-
-## Download
-
-MacOS: [https://github.com/Zhangdroid/Gokotta/releases](https://github.com/Zhangdroid/Gokotta/releases)
-
-Linux and Windows will be coming soon.
-
-## Usage
-
-Just click `add` and chose your music folder.
-
-## Install
-
-```
-git clone https://github.com/Zhangdroid/Gokotta.git
-cd Gokotta && npm install
-```
-
-## Run
-
-Run this two commands in **different** console tabs:
-
-```
-npm run dev-server
+# serve with hot reload at localhost:9080
 npm run dev
+
+# build electron app for production
+npm run build
+
+# lint all JS/Vue component files in `app/src`
+npm run lint
+
+# run webpack in production
+npm run pack
 ```
+More information can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/docs/npm_scripts.html).
 
-## Package
+---
 
-```
-npm run release
-```
-
-Or run this command for all platform:
-
-```
-npm run release-all
-```
-
-## TODO
-
-* [x] Search
-* [x] Setting
-* [ ] Support Windows and Linux
-* [ ] Custom list
-* [ ] Plugin support
-* [ ] Core Plugin(lyric, ID3 editor, Equalizer...)
-
-## Credits
-
-* [Electron](http://electron.atom.io/)
-* [Vue](http://vuejs.org/)
-* [wavesurfer.js](http://wavesurfer-js.org/)
-* [musicmetadata](https://github.com/leetreveil/musicmetadata)
-* [node-vibrant](https://www.npmjs.com/package/node-vibrant)
-* [Logo](https://github.com/Zhangdroid/Gokotta/blob/master/src/assets/images/logo.png) from [http://logodust.com/](http://logodust.com/)
-
-## License
-
-[MIT License](https://github.com/Zhangdroid/Gokotta/blob/master/LICENSE)
+This project was generated from [electron-vue](https://github.com/SimulatedGREG/electron-vue) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about this project can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).

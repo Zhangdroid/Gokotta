@@ -1,138 +1,56 @@
 {
   "name": "gokotta",
-  "productName": "Gokotta",
-  "version": "0.0.5",
-  "description": "A simple music player",
-  "main": "main.js",
+  "version": "0.0.0",
+  "description": "An electron-vue project",
   "scripts": {
-    "test": "better-npm-run test",
-    "test-watch": "npm test --watch",
-    "lint": "eslint src test *.js",
-    "build": "better-npm-run build",
-    "start": "better-npm-run start",
-    "dev": "better-npm-run start-hot",
-    "dev-server": "node server.js",
-    "build-testing": "better-npm-run build-testing",
-    "pack-testing": "better-npm-run pack-testing",
-    "pack-testing-all": "better-npm-run pack-testing-all",
-    "release": "better-npm-run pack",
-    "release-all": "better-npm-run pack-all"
+    "build": "node tasks/release.js",
+    "build:clean": "del builds/* !.gitkeep",
+    "build:darwin": "cross-env PLATFORM_TARGET=darwin node tasks/release.js",
+    "build:linux": "cross-env PLATFORM_TARGET=linux node tasks/release.js",
+    "build:mas": "cross-env PLATFORM_TARGET=mas node tasks/release.js",
+    "build:win32": "cross-env PLATFORM_TARGET=win32 node tasks/release.js",
+    "dev": "node tasks/runner.js",
+    "lint": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter app",
+    "pack": "cross-env NODE_ENV=production webpack -p --progress --colors",
+    "postinstall": "cd app && npm install",
+    "vue:route": "node tasks/vue/route.js",
+    "vuex:module": "node tasks/vuex/module.js"
   },
-  "betterScripts": {
-    "start": {
-      "command": "electron ./",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
-    "start-hot": {
-      "command": "electron ./",
-      "env": {
-        "HOT": 1,
-        "NODE_ENV": "development"
-      }
-    },
-    "pack": {
-      "command": "node pack.js",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
-    "pack-all": {
-      "command": "node pack.js --all",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
-    "build": {
-      "command": "webpack --config webpack-config/production.js --progress --profile --colors",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
-    "pack-testing": {
-      "command": "node pack.js",
-      "env": {
-        "NODE_ENV": "testing"
-      }
-    },
-    "pack-testing-all": {
-      "command": "node pack.js --all",
-      "env": {
-        "NODE_ENV": "testing"
-      }
-    },
-    "build-testing": {
-      "command": "webpack --config webpack-config/testing.js --progress --profile --colors",
-      "env": {
-        "NODE_ENV": "testing"
-      }
-    },
-    "test": {
-      "command": "mocha --compilers js:babel-core/register --recursive --require ./test/setup.js test/**/*.spec.js",
-      "env": {
-        "NODE_ENV": "test"
-      }
-    }
-  },
-  "bin": {
-    "electron": "./node_modules/.bin/electron"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Zhangdroid/Gokotta.git"
-  },
-  "keywords": [
-    "vue",
-    "electron",
-    "player"
-  ],
-  "author": "Zhangdroid <contrary.zhuo@gmail.com>",
+  "author": "Greg Holguin <simulatedgreg@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Zhangdroid/Gokotta/issues"
-  },
-  "homepage": "https://github.com/Zhangdroid/Gokotta#readme",
   "devDependencies": {
-    "asar": "^0.10.0",
-    "babel": "^6.5.2",
-    "babel-core": "^6.7.4",
+    "babel-core": "^6.8.0",
     "babel-loader": "^6.2.4",
-    "babel-plugin-transform-runtime": "^6.6.0",
-    "babel-polyfill": "^6.7.4",
+    "babel-plugin-transform-runtime": "^6.8.0",
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-runtime": "^6.6.1",
-    "better-npm-run": "0.0.8",
-    "connect-history-api-fallback": "^1.2.0",
+    "cross-env": "^1.0.7",
     "css-loader": "^0.23.1",
-    "del": "^2.2.0",
-    "electron-debug": "^0.5.2",
+    "devtron": "^1.1.0",
+    "electron-devtools-installer": "^1.1.4",
     "electron-packager": "^7.0.1",
-    "electron-prebuilt": "^0.37.2",
+    "electron-prebuilt": "^1.0.1",
     "electron-rebuild": "^1.1.3",
-    "express": "^4.13.4",
+    "eslint": "^2.9.0",
+    "eslint-config-standard": "^5.3.1",
+    "eslint-friendly-formatter": "^2.0.5",
+    "eslint-loader": "^1.3.0",
+    "eslint-plugin-html": "^1.4.0",
+    "eslint-plugin-promise": "^1.1.0",
+    "eslint-plugin-standard": "^1.3.2",
     "extract-text-webpack-plugin": "^1.0.1",
-    "html-webpack-plugin": "^2.14.0",
-    "image-webpack-loader": "^1.6.3",
-    "minimist": "^1.2.0",
-    "style-loader": "^0.13.0",
-    "vue-hot-reload-api": "^1.3.1",
-    "vue-html-loader": "^1.1.0",
-    "vue-loader": "^8.2.2",
-    "vue-router": "^0.7.11",
+    "file-loader": "^0.8.5",
+    "html-webpack-plugin": "^2.16.1",
+    "json-loader": "^0.5.4",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "vue-hot-reload-api": "^1.3.2",
+    "vue-html-loader": "^1.2.2",
+    "vue-loader": "^8.3.1",
     "vue-style-loader": "^1.0.0",
-    "webpack": "^1.12.12",
-    "webpack-dev-middleware": "^1.6.0",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-hot-middleware": "^2.10.0"
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1"
   },
-  "dependencies": {
-    "musicmetadata": "^2.0.2",
-    "node-vibrant": "^2.1.2",
-    "vue": "^1.0.18",
-    "vue-animated-list": "^1.0.2",
-    "vue-async-data": "^1.0.2",
-    "vuex": "^0.3.0"
-  }
+  "dependencies": {}
 }
