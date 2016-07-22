@@ -14,10 +14,9 @@ function getMusicFileFromFolder (folder) {
   files.forEach(item => {
     let currentPath = path.join(folder, item)
     if (fs.statSync(currentPath).isDirectory()) {
-      getMusicFileFromFolder(currentPath).forEach(item => {
-        songs.add(item)
-      })
-    } else if (SUPPORTED_FORMAT.has(path.extname(currentPath).toLowerCase().replace(/./, ''))) {
+      let newSongs = getMusicFileFromFolder(currentPath)
+      songs = new Set([...songs, ...newSongs])
+    } else if (isMusicFile(currentPath)) {
       songs.add(currentPath)
     }
   })
