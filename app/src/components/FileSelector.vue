@@ -9,12 +9,44 @@
 </template>
 
 <script>
-import { getMusicFileFromFolder } from '../services/file'
+import { isMusicFile, getMusicFileFromFolder, getMusicInformation } from '../services/file'
+import { Song } from '../services/song'
 export default {
   methods: {
-    handleDrop (e) {
-      let files = getMusicFileFromFolder(e.dataTransfer.files[0].path)
-      console.log(files)
+    getAllMusicFiles (e) {
+      const length = e.dataTransfer.items.length
+      let songs = new Set()
+      for (let i = 0; i < length; i++) {
+        const entry = e.dataTransfer.items[i].webkitGetAsEntry()
+        const path = e.dataTransfer.files[i].path
+        if (entry.isFile) {
+          if (isMusicFile(path)) {
+            songs.add(path)
+          }
+        } else if (entry.isDirectory) {
+          let newSongs = getMusicFileFromFolder(path)
+          songs = new Set([...songs, ...newSongs])
+        }
+      }
+      return songs
+    },
+    async handleDrop (e) {
+      const songsPath = this.getAllMusicFiles(e)
+      const songs = []
+      for (let path of songsPath) {
+        const tag = await getMusicInformation(path)
+        let song = new Song(tag, path)
+        songs.push(song)
+      }
+      const transaction = this.$db.transaction('ALL_SONGS', 'readwrite')
+      const objectStore = transaction.objectStore('ALL_SONGS')
+      songs.forEach(song => {
+        let req = objectStore.add(song)
+        req.onerror = (error) => {
+          // Todo
+          console.log(error)
+        }
+      })
     }
   }
 }
