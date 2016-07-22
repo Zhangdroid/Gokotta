@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import mm from 'musicmetadata'
 
 const SUPPORTED_FORMAT = new Set(['mp3', 'ogg', 'wav', 'aac', 'w4a', 'weba'])
 
@@ -32,4 +33,13 @@ function isMusicFile (file) {
   return SUPPORTED_FORMAT.has(path.extname(file).toLowerCase().replace(/./, ''))
 }
 
-export { isMusicFile, getMusicFileFromFolder }
+function getMusicInformation (file) {
+  return new Promise((resolve, reject) => {
+    mm(fs.createReadStream(file), (err, tag) => {
+      if (err) reject(err)
+      resolve(tag)
+    })
+  })
+}
+
+export { isMusicFile, getMusicFileFromFolder, getMusicInformation }
