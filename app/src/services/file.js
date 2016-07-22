@@ -23,4 +23,13 @@ function getMusicFileFromFolder (folder) {
   return songs
 }
 
-export { getMusicFileFromFolder }
+/**
+ * if a file is a music file.
+ * @param   {string} file - the path of file
+ * @returns {boolean}
+ */
+function isMusicFile (file) {
+  return SUPPORTED_FORMAT.has(path.extname(file).toLowerCase().replace(/./, ''))
+}
+
+export { isMusicFile, getMusicFileFromFolder }
