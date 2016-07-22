@@ -1,5 +1,15 @@
+/**
+ * Open or create a database.
+ * @param   {string[]} store
+ * @param   {string} [key='id']
+ * @param   {number} [version=1]
+ * @returns {Promise}
+ */
 function openDB ({
-  store = 'ALL_SONGS',
+  stores = [
+    { name: 'ALL_SONGS', key: 'id' },
+    { name: 'PLAYLIST', key: 'id' }
+  ],
   key = 'id',
   version = 1
 } = {}) {
@@ -8,7 +18,9 @@ function openDB ({
   return new Promise((resolve, reject) => {
     request.onupgradeneeded = event => {
       let db = event.target.result
-      db.createObjectStore(store, { keyPath: key })
+      stores.forEach(store => {
+        db.createObjectStore(store.name, { keyPath: store.key })
+      })
       resolve(db)
     }
 
