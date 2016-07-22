@@ -3,11 +3,11 @@ import path from 'path'
 
 const SUPPORTED_FORMAT = new Set(['mp3', 'ogg', 'wav', 'aac', 'w4a', 'weba'])
 
-/**
- * Get music files from folder.
- * @param {string} folder - music folder
- * @returns {Set} Music files
- */
+ /**
+  * Get music files from folder.
+  * @param   {string} folder - the path of music folder
+  * @returns {Set}    Music files
+  */
 function getMusicFileFromFolder (folder) {
   let songs = new Set()
   const files = fs.readdirSync(folder)
