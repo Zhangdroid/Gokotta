@@ -11,6 +11,7 @@ module.exports = {
   plugins: [
     'html'
   ],
+  parser: 'babel-eslint',
   'rules': {
     'arrow-parens': 0,
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
