@@ -34,4 +34,25 @@ function openDB ({
   })
 }
 
-export { openDB }
+/**
+ * Get all songs from database.
+ * @param   {object} database
+ * @returns {Promise}
+ */
+function getAllSongs (db) {
+  return new Promise((resolve, reject) => {
+    const songs = []
+    const objectStore = db.transaction('ALL_SONGS', 'readwrite').objectStore('ALL_SONGS')
+    objectStore.openCursor().onsuccess = (event) => {
+      const cursor = event.target.result
+      if (cursor) {
+        songs.push(cursor.value)
+        cursor.continue()
+      } else {
+        resolve(songs)
+      }
+    }
+  })
+}
+
+export { openDB, getAllSongs }
