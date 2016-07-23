@@ -24,7 +24,7 @@ export default {
             songs.add(path)
           }
         } else if (entry.isDirectory) {
-          let newSongs = getMusicFileFromFolder(path)
+          const newSongs = getMusicFileFromFolder(path)
           songs = new Set([...songs, ...newSongs])
         }
       }
@@ -35,11 +35,10 @@ export default {
       const songs = []
       for (let path of songsPath) {
         const tag = await getMusicInformation(path)
-        let song = new Song(tag, path)
+        const song = new Song(tag, path)
         songs.push(song)
       }
-      const transaction = this.$db.transaction('ALL_SONGS', 'readwrite')
-      const objectStore = transaction.objectStore('ALL_SONGS')
+      const objectStore = this.$db.transaction('ALL_SONGS', 'readwrite').objectStore('ALL_SONGS')
       songs.forEach(song => {
         let req = objectStore.add(song)
         req.onerror = (error) => {
