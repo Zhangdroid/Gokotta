@@ -4,12 +4,6 @@ import Router from 'vue-router'
 import App from './App'
 import routes from './routes'
 
-import { openDB } from './services/database'
-
-(async () => {
-  Vue.prototype.$db = await openDB()
-})()
-
 Vue.use(Router)
 Vue.config.debug = true
 
