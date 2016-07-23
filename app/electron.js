@@ -26,6 +26,9 @@ function createWindow () {
     frame: false,
     transparent: true,
     titleBarStyle: 'hidden',
+    webPreferences: {
+      experimentalFeatures: true
+    }
   })
 
   mainWindow.loadURL(config.url)
