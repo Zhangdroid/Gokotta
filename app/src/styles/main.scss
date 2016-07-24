@@ -4,6 +4,10 @@ html {
   background-color: rgba(255, 255, 255, .98);
   font-family: -apple-system, "Helvetica Neue", "Arial", san-serif;
 }
+* {
+  margin: 0;
+  padding: 0;
+}
 *, *:before, *:after {
   box-sizing: inherit;
 }
