@@ -9,12 +9,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/variables";
 .sidebar {
   position: fixed;
-  top: 8vh;
-  bottom: 18vh;
+  z-index: $sidebar-zindex;
+  top: $toolbar-height;
+  bottom: $player-height;
   left: 0;
-  width: 18vw;
+  width: $sidebar-width;
   background-color: #fff;
 }
 </style>

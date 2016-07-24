@@ -18,12 +18,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/variables";
 .player {
   position: fixed;
+  z-index: $player-zindex;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 18vh;
+  height: $player-height;
   background-color: rgba(255, 255, 255, .8);
   backdrop-filter: blur(5px);
 }
