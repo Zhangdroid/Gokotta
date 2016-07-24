@@ -1,1 +1,3 @@
+export const INIT_DATABASE = 'INIT_DATABASE'
 export const PLAY_SONG = 'PLAY_SONG'
+export const CHANGE_MAIN_COLOR = 'CHANGE_MAIN_COLOR'
