@@ -12,6 +12,11 @@
 import { isMusicFile, getMusicFileFromFolder, getMusicInformation } from '../services/file'
 import { Song } from '../services/song'
 export default {
+  vuex: {
+    getters: {
+      database: ({ database }) => database.mainDB
+    }
+  },
   methods: {
     getAllMusicFiles (e) {
       const length = e.dataTransfer.items.length
@@ -38,7 +43,7 @@ export default {
         const song = new Song(tag, path)
         songs.push(song)
       }
-      const objectStore = this.$db.transaction('ALL_SONGS', 'readwrite').objectStore('ALL_SONGS')
+      const objectStore = this.database.transaction('ALL_SONGS', 'readwrite').objectStore('ALL_SONGS')
       songs.forEach(song => {
         let req = objectStore.add(song)
         req.onerror = (error) => {
