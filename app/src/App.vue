@@ -9,6 +9,7 @@
 
 <script>
 import store from './vuex/store'
+import { initDatabase } from './vuex/action'
 
 import toolbar from './components/Toolbar.vue'
 import sidebar from './components/Sidebar.vue'
@@ -19,6 +20,14 @@ export default {
     toolbar,
     sidebar,
     player
+  },
+  vuex: {
+    actions: {
+      initDatabase
+    }
+  },
+  created () {
+    this.initDatabase()
   }
 }
 </script>
