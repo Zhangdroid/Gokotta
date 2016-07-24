@@ -1,11 +1,11 @@
-import {} from '../mutation-types'
+import { PLAY_SONG } from '../mutation-types'
 
 const state = {
   currentSong: {}
 }
 
 const mutations = {
-  PLAY_SONG (state, song) {
+  [PLAY_SONG] (state, song) {
     state.currentSong = song
   }
 }
