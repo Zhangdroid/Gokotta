@@ -1,12 +1,11 @@
 <template>
   <div class="player">
-    <img :src="cover" class="cover">
+    <img :src="currentSong.cover" class="cover">
     {{ currentSong.title }}
   </div>
 </template>
 
 <script>
-import encode from '../utils/encode'
 export default {
   vuex: {
     getters: {
@@ -14,11 +13,6 @@ export default {
     }
   },
   computed: {
-    cover () {
-      if (this.currentSong.picture[0].data) {
-        return `data:image/png;base64,${encode(this.currentSong.picture[0].data)}`
-      }
-    }
   }
 }
 </script>
