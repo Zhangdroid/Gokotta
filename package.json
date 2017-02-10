@@ -1,138 +1,113 @@
 {
   "name": "gokotta",
-  "productName": "Gokotta",
-  "version": "0.0.5",
-  "description": "A simple music player",
-  "main": "main.js",
+  "version": "0.0.0",
+  "description": "An electron-vue project",
   "scripts": {
-    "test": "better-npm-run test",
-    "test-watch": "npm test --watch",
-    "lint": "eslint src test *.js",
-    "build": "better-npm-run build",
-    "start": "better-npm-run start",
-    "dev": "better-npm-run start-hot",
-    "dev-server": "node server.js",
-    "build-testing": "better-npm-run build-testing",
-    "pack-testing": "better-npm-run pack-testing",
-    "pack-testing-all": "better-npm-run pack-testing-all",
-    "release": "better-npm-run pack",
-    "release-all": "better-npm-run pack-all"
+    "build": "npm run pack && build",
+    "build:dir": "npm run pack && build --dir",
+    "dev": "node tasks/runner.js",
+    "e2e": "npm run pack && mocha test/e2e",
+    "lint": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter app test",
+    "lint:fix": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter --fix app test",
+    "pack": "npm run pack:main && npm run pack:renderer",
+    "pack:main": "cross-env NODE_ENV=production webpack -p --progress --colors --config webpack.main.config.js",
+    "pack:renderer": "cross-env NODE_ENV=production webpack -p --progress --colors --config webpack.renderer.config.js",
+    "test": "npm run unit && npm run e2e",
+    "unit": "cross-env BABEL_ENV=testing-unit karma start test/unit/karma.conf.js",
+    "postinstall": "npm run lint:fix && cd app && npm install"
   },
-  "betterScripts": {
-    "start": {
-      "command": "electron ./",
-      "env": {
-        "NODE_ENV": "production"
-      }
+  "build": {
+    "productName": "ElectronVue",
+    "appId": "org.simulatedgreg.electron-vue",
+    "category": "public.app-category.tools",
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
     },
-    "start-hot": {
-      "command": "electron ./",
-      "env": {
-        "HOT": 1,
-        "NODE_ENV": "development"
-      }
+    "files": [
+      "dist/",
+      "node_modules/",
+      "package.json"
+    ],
+    "mac": {
+      "icon": "app/icons/icon.icns"
     },
-    "pack": {
-      "command": "node pack.js",
-      "env": {
-        "NODE_ENV": "production"
-      }
+    "win": {
+      "icon": "app/icons/icon.ico"
     },
-    "pack-all": {
-      "command": "node pack.js --all",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
-    "build": {
-      "command": "webpack --config webpack-config/production.js --progress --profile --colors",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
-    "pack-testing": {
-      "command": "node pack.js",
-      "env": {
-        "NODE_ENV": "testing"
-      }
-    },
-    "pack-testing-all": {
-      "command": "node pack.js --all",
-      "env": {
-        "NODE_ENV": "testing"
-      }
-    },
-    "build-testing": {
-      "command": "webpack --config webpack-config/testing.js --progress --profile --colors",
-      "env": {
-        "NODE_ENV": "testing"
-      }
-    },
-    "test": {
-      "command": "mocha --compilers js:babel-core/register --recursive --require ./test/setup.js test/**/*.spec.js",
-      "env": {
-        "NODE_ENV": "test"
-      }
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
     }
   },
-  "bin": {
-    "electron": "./node_modules/.bin/electron"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Zhangdroid/Gokotta.git"
-  },
-  "keywords": [
-    "vue",
-    "electron",
-    "player"
-  ],
-  "author": "Zhangdroid <contrary.zhuo@gmail.com>",
+  "author": "Greg Holguin <simulatedgreg@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Zhangdroid/Gokotta/issues"
-  },
-  "homepage": "https://github.com/Zhangdroid/Gokotta#readme",
   "devDependencies": {
-    "asar": "^0.10.0",
-    "babel": "^6.5.2",
-    "babel-core": "^6.7.4",
+    "babel-core": "^6.8.0",
     "babel-loader": "^6.2.4",
-    "babel-plugin-transform-runtime": "^6.6.0",
-    "babel-polyfill": "^6.7.4",
+    "babel-plugin-transform-runtime": "^6.8.0",
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.18.0",
     "babel-runtime": "^6.6.1",
-    "better-npm-run": "0.0.8",
-    "connect-history-api-fallback": "^1.2.0",
-    "css-loader": "^0.23.1",
-    "del": "^2.2.0",
-    "electron-debug": "^0.5.2",
-    "electron-packager": "^7.0.1",
-    "electron-prebuilt": "^0.37.2",
+    "cross-env": "^3.1.4",
+    "css-loader": "^0.26.1",
+    "del": "^2.2.1",
+    "devtron": "^1.1.0",
+    "electron": "^1.3.1",
+    "electron-debug": "^1.1.0",
+    "electron-devtools-installer": "^2.0.1",
+    "electron-builder": "^11.4.4",
     "electron-rebuild": "^1.1.3",
-    "express": "^4.13.4",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "html-webpack-plugin": "^2.14.0",
-    "image-webpack-loader": "^1.6.3",
-    "minimist": "^1.2.0",
-    "style-loader": "^0.13.0",
-    "vue-hot-reload-api": "^1.3.1",
-    "vue-html-loader": "^1.1.0",
-    "vue-loader": "^8.2.2",
-    "vue-router": "^0.7.11",
+    "babel-eslint": "^7.0.0",
+    "eslint": "^3.13.1",
+    "eslint-friendly-formatter": "^2.0.5",
+    "eslint-loader": "^1.3.0",
+    "eslint-plugin-html": "^2.0.0",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "extract-text-webpack-plugin": "^2.0.0-beta.4",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.16.1",
+    "json-loader": "^0.5.4",
+    "babel-plugin-istanbul": "^3.1.2",
+    "inject-loader": "^2.0.1",
+    "karma": "^1.3.0",
+    "karma-chai": "^0.1.0",
+    "karma-coverage": "^1.1.1",
+    "karma-electron": "^5.1.1",
+    "karma-mocha": "^1.2.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.26",
+    "karma-webpack": "^2.0.1",
+    "webpack-merge": "^2.4.0",
+    "require-dir": "^0.3.0",
+    "spectron": "^3.4.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2",
+    "style-loader": "^0.13.1",
+    "tree-kill": "^1.1.0",
+    "url-loader": "^0.5.7",
+    "vue-hot-reload-api": "^2.0.7",
+    "vue-html-loader": "^1.2.2",
+    "vue-loader": "^10.0.2",
     "vue-style-loader": "^1.0.0",
-    "webpack": "^1.12.12",
-    "webpack-dev-middleware": "^1.6.0",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-hot-middleware": "^2.10.0"
+    "vue-template-compiler": "^2.1.10",
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "^2.2.0"
   },
-  "dependencies": {
-    "musicmetadata": "^2.0.2",
-    "node-vibrant": "^2.1.2",
-    "vue": "^1.0.18",
-    "vue-animated-list": "^1.0.2",
-    "vue-async-data": "^1.0.2",
-    "vuex": "^0.3.0"
-  }
+  "dependencies": {}
 }

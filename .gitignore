@@ -1,5 +1,13 @@
-node_modules
-build
-release
 .DS_Store
+app/dist/index.html
+app/dist/main.js
+app/dist/renderer.js
+app/dist/styles.css
+builds/*
+dist/*
+coverage
+node_modules/
 npm-debug.log
+npm-debug.log.*
+thumbs.db
+!.gitkeep

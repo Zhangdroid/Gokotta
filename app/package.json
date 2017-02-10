@@ -1,0 +1,13 @@
+{
+  "name": "gokotta",
+  "version": "0.0.0",
+  "description": "An electron-vue project",
+  "main": "./dist/main.js",
+  "dependencies": {
+    "vue": "^2.1.10",
+    "vue-router": "^2.2.0",
+    "vuex": "^2.1.2"
+  },
+  "devDependencies": {},
+  "author": "Zhuo Zhang <contrary.zhuo@gmail.com>"
+}
