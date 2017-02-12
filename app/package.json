@@ -4,6 +4,8 @@
   "description": "An electron-vue project",
   "main": "./dist/main.js",
   "dependencies": {
+    "pouchdb": "^6.1.2",
+    "pouchdb-adapter-idb": "^6.1.2",
     "vue": "^2.1.10",
     "vue-router": "^2.2.0",
     "vuex": "^2.1.2"
