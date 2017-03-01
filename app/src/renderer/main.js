@@ -1,16 +1,12 @@
 import Vue from 'vue'
-
 import router from './router'
-import store from './store'
 
 import App from './App'
 
 Vue.config.debug = true
 
-const app = new Vue({
+/* eslint-disable no-new */
+new Vue({
   router,
-  store,
   ...App
-})
-
-app.$mount('#app')
+}).$mount('#app')

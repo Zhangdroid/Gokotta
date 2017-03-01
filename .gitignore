@@ -1,4 +1,5 @@
 .DS_Store
+.idea/
 app/dist/index.html
 app/dist/main.js
 app/dist/renderer.js

@@ -1,6 +1,6 @@
 # gokotta
 
-> An electron-vue project
+> A simple music player
 
 ## Build Setup
 

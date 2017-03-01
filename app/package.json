@@ -1,15 +1,12 @@
 {
   "name": "gokotta",
   "version": "0.0.0",
-  "description": "An electron-vue project",
+  "description": "A simple music player",
   "main": "./dist/main.js",
   "dependencies": {
-    "pouchdb": "^6.1.2",
-    "pouchdb-adapter-idb": "^6.1.2",
     "vue": "^2.1.10",
-    "vue-router": "^2.2.0",
-    "vuex": "^2.1.2"
+    "vue-router": "^2.1.2",
+    "vuex": "^2.1.1"
   },
-  "devDependencies": {},
   "author": "Zhuo Zhang <contrary.zhuo@gmail.com>"
 }

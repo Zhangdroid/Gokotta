@@ -1,7 +1,7 @@
 {
   "name": "gokotta",
-  "version": "0.0.0",
-  "description": "An electron-vue project",
+  "version": "0.0.1",
+  "description": "A simple music player",
   "scripts": {
     "build": "npm run pack && build",
     "build:dir": "npm run pack && build --dir",
@@ -52,7 +52,7 @@
       ]
     }
   },
-  "author": "Greg Holguin <simulatedgreg@gmail.com>",
+  "author": "Zhuo Zhang <contrary.zhuo@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.8.0",
@@ -106,8 +106,7 @@
     "vue-loader": "^10.0.2",
     "vue-style-loader": "^1.0.0",
     "vue-template-compiler": "^2.1.10",
-    "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0"
-  },
-  "dependencies": {}
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0"
+  }
 }
