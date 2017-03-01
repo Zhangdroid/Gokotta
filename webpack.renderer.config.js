@@ -97,6 +97,9 @@ let rendererConfig = {
   resolve: {
     alias: {
       'components': path.join(__dirname, 'app/src/renderer/components'),
+      'models': path.join(__dirname, 'app/src/renderer/models'),
+      'services': path.join(__dirname, 'app/src/renderer/services'),
+      'utils': path.join(__dirname, 'app/src/renderer/utils'),
       'views': path.join(__dirname, 'app/src/renderer/views'),
       'renderer': path.join(__dirname, 'app/src/renderer')
     },
