@@ -12,8 +12,11 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800
+    width: 960,
+    height: 720,
+    frame: false,
+    titleBarStyle: 'hidden',
+    vibrancy: 'selection'
   })
 
   mainWindow.loadURL(winURL)
