@@ -4,6 +4,9 @@
   "description": "A simple music player",
   "main": "./dist/main.js",
   "dependencies": {
+    "musicmetadata": "^2.0.5",
+    "pouchdb": "^6.1.2",
+    "uuid": "^3.0.1",
     "vue": "^2.1.10",
     "vue-router": "^2.1.2",
     "vuex": "^2.1.1"
